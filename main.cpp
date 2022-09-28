@@ -40,12 +40,22 @@ int main(void)
     glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
     glfwSwapBuffers(window);
 
+    float vertices[] = {
+            -0.5f, -0.5f, 0.0f,
+            0.5f, -0.5f, 0.0f,
+            0.0f,  0.5f, 0.0f
+    };
+
+    float green = 0.0f;
+    bool state = false;
+
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
 
         /* Render here */
-        glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+        glClearColor(0.1f, green, 0.6f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         /* Swap front and back buffers */
@@ -53,6 +63,20 @@ int main(void)
 
         /* Poll for and process events */
         glfwPollEvents();
+
+        if(green >= 1.0f)
+        {
+            state = true;
+        }
+        else if(state == false)
+            green = green + 0.003f;
+        if(green <= 0.0f)
+        {
+            state = false;
+        }
+        else if(state == true)
+            green = green - 0.003f;
+
     }
 
     glfwDestroyWindow(window);
